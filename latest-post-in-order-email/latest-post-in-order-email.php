@@ -1,8 +1,8 @@
 <?php
 /**
- * Plugin Name: Latest Post in Order Email
+ * Plugin Name: Latest Post in WooCommerce Order Email
  * Plugin URI: https://morfjord.com
- * Description: This plugin adds the latest post to WooCommerce order completion email.
+ * Description: This plugin adds the latest post to WooCommerce order completion and invoice emails.
  * Version: 1.0
  * Author: Martin Morfjord
  * Author URI: https://morfjord.com
@@ -11,7 +11,8 @@
 
 // Hook for adding content of the latest post to the WooCommerce email
 function add_latest_post_to_order_email( $order, $sent_to_admin, $plain_text, $email ) {
-    if ( 'customer_completed_order' === $email->id ) {
+    // Check if the email is customer_completed_order or customer_invoice
+    if ( 'customer_completed_order' === $email->id || 'customer_invoice' === $email->id ) {
         // Get the latest post
         $args = array(
             'numberposts' => 1,
